@@ -1,0 +1,37 @@
+{
+  "name": "nebula",
+  "version": "1.0.0",
+  "description": "Framework that is easy and effective",
+  "main": "./dist/index.js",
+  "module": "./dist/module/index.mjs",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "nebula": "./dist/bin/nebula.js"
+  },
+  "scripts": {
+    "test": "npm unlink nebula && npm link && nebula generate",
+    "build": "tsup --config tsup.config.cjs.ts && tsup --config tsup.config.esm.ts"
+  },
+  "keywords": [
+    "nebula",
+    "framework",
+    "easy",
+    "effective",
+    "typescript",
+    "javascript",
+    "nodejs",
+    "js",
+    "ts"
+  ],
+  "author": "Abdelmonem Ahmed",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.2",
+    "tsup": "^8.1.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

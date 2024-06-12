@@ -1,0 +1,30 @@
+# Ignore files and directories generated during development
+node_modules/
+src/
+build/
+coverage/
+
+# Ignore specific files
+*.log
+*.tmp
+
+# Ignore configuration files
+.env
+config.js
+
+# Ignore development and build scripts
+gulpfile.js
+tsup.config.ts
+tsconfig.json
+webpack.config.js
+babel.config.js
+
+# Ignore version control files
+.git/
+.gitignore
+
+# Ignore documentation files
+docs/
+
+# Ignore test files
+test/

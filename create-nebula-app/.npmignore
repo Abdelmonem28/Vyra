@@ -1,0 +1,21 @@
+# Ignore all files and directories starting with a dot
+.*
+
+# Ignore development and build files
+node_modules/
+src/
+build/
+
+# Ignore configuration files
+*.config.js
+*.config.ts
+.env
+
+# Ignore test files
+*.test.js
+__tests__/
+
+# Ignore documentation files
+docs/
+
+# Ignore any other files or directories you want to exclude from the package

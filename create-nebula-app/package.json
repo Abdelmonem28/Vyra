@@ -1,0 +1,35 @@
+{
+  "name": "@mon3sh/create-nebula-app",
+  "version": "1.1.1",
+  "description": "create nebula app",
+  "bin": {
+    "create-nebula": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "nebula",
+    "create-nebula-app",
+    "nebula-app",
+    "create-nebula",
+    "nebula-cli",
+    "nebula-create",
+    "nebula-create-app",
+    "nebula-app-create",
+    "framework",
+    "nebula-framework",
+    "nebula-cli",
+    "nebula-cli-create"
+  ],
+  "author": "MSK company",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "tsup": "^8.1.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "picocolors": "^1.0.1"
+  }
+}
