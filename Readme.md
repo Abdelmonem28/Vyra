@@ -1,6 +1,6 @@
 # Nebula.js
 
-![Nebula logo](file.png)
+![Nebula logo](public/file.png)
 
 ## Description
 
