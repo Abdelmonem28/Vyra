@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import askQuestion from "../cli/prompt";
+import prompt from "../cli/prompt";
 
 const args = process.argv.slice(2);
 
@@ -23,9 +23,9 @@ switch (command) {
         break;
     case "ask":
         (async () => {
-            const name = await askQuestion("What is your name? ");
-            const age = await askQuestion("What is your age? ");
-            const sallary = await askQuestion("What is your sallary? ");
+            const name = await prompt("What is your name? ");
+            const age = await prompt("What is your age? ");
+            const sallary = await prompt("What is your sallary? ");
             console.log(`Hello, ${name}!`);
             console.log(`your age is, ${age}!`);
             console.log(`your sallary is, ${sallary}!`);
