@@ -9,5 +9,5 @@ export default defineConfig({
     clean: true,
     outDir: 'dist',
     tsconfig: 'tsconfig.json',
-    // minify: true,
+    minify: true,
 });
