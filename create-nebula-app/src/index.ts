@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import Package from "./create-package";
 import * as fs from "fs";
-import prompt from '../cli/prompt';
-import copyDirectory from '../cli/Copy';
+import prompt from './cli/prompt';
+import copyDirectory from './cli/Copy';
 
 
 console.log("Welcome to Nebula CLI");
