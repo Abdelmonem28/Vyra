@@ -3,11 +3,12 @@ import Package from "./create-package";
 import * as fs from "fs";
 import prompt from './cli/prompt';
 import copyDirectory from './cli/Copy';
+import pc from 'picocolors';
 
 
 console.log("Welcome to Nebula CLI");
 (async () => {
-    const appName = await prompt("What is the name of your app: ", "my-nebula-app");
+    const appName = await prompt(pc.bold(pc.cyan("What is the name of your app: ")), "my-nebula-app");
     const appDir = `${process.cwd()}\\${appName}`;
     if (fs.existsSync(appDir)) {
         console.log(`The directory ${appDir} already exists`);

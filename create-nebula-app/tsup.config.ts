@@ -8,5 +8,6 @@ export default defineConfig({
     skipNodeModulesBundle: true,
     clean: true,
     outDir: 'dist',
+    tsconfig: 'tsconfig.json',
     // minify: true,
 });
