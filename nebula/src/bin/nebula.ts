@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
+import compile from "../cli/compile";
 import prompt from "../cli/prompt";
+import fs from "fs";
+import pc from 'picocolors';
 
 const args = process.argv.slice(2);
 
@@ -15,11 +18,15 @@ const command = args[0];
 
 switch (command) {
     case "build":
-        console.log("Building project...");
+        (async () =>{
+            console.log(pc.cyan("Building project..."));
+            if (fs.existsSync("dist"))
+                fs.rmSync("dist", { recursive: true });
+            fs.mkdirSync("dist");
+            compile("dist");
+        })();
         break;
     case "dev":
-        
-        ;
         break;
     case "ask":
         (async () => {
@@ -33,12 +40,6 @@ switch (command) {
         })();
         break;
     default:
-        console.log(`Unknown command: ${command}` + `\n\n` + `Usage: nebula <command>` + `\n\n` + `where <command> is one of:
-
-        build
-        it will build the project
-
-        dev
-        it will start the development server and watch for changes\n\n`);
+        console.log(`Unknown command: ${command}` + `\n\n` + `Usage: nebula <command>` + `\n\n` + `where <command> is one of:\n\nbuild\nit will build the project\n\ndev\nit will start the development server and watch for changes\n\n`);
         process.exit(1);
 }

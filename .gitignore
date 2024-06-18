@@ -12,6 +12,7 @@ dist
 
 # Ignore package manager directories
 node_modules
+test/
 packages
 
 # Ignore log files

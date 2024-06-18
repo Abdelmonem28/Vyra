@@ -1,5 +1,5 @@
 {
-  "name": "nebula",
+  "name": "@mon3sh/nebula",
   "version": "1.0.0",
   "description": "Framework that is easy and effective",
   "main": "./dist/index.js",
@@ -32,6 +32,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "picocolors": "^1.0.1"
   }
 }

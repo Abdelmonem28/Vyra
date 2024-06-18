@@ -9,6 +9,10 @@ export default async function listFiles(directoryPath: string): Promise<string[]
     // Create an array to store the file paths
     const arr: string[] = [];
 
+    // Check if the directory exists
+    if (!fs.existsSync(directoryPath))
+        throw new Error(`Directory not found: ${directoryPath}`);
+
     // Read all entries (files and directories) in the source directory
     const files = await readdir(directoryPath);
 
@@ -20,10 +24,10 @@ export default async function listFiles(directoryPath: string): Promise<string[]
         const stats = await stat(fullPath);
         if (stats.isDirectory()) {
             // Recursively list files in the subdirectory
-            arr.push(...await listFiles(fullPath));
+            arr.push(...await listFiles(fullPath.replaceAll("\\",'/')));
         } else {
             // Add the file path to the array
-            arr.push(fullPath);
+            arr.push(fullPath.replaceAll("\\",'/'));
         }
     }
     return arr;
