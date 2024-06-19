@@ -5,6 +5,12 @@ import prompt from "../cli/prompt";
 import fs from "fs";
 import pc from 'picocolors';
 
+type Config = {
+    pages?: string;
+    typeScript?: boolean;
+    dist?: string;
+}
+
 const args = process.argv.slice(2);
 
 
@@ -18,12 +24,17 @@ const command = args[0];
 
 switch (command) {
     case "build":
-        (async () =>{
+        (async () => {
+            let config: Config = {};
+            const distFolder = config.dist || "dist";
+            if (fs.existsSync('nebula.config.json')) {
+                config = JSON.parse(fs.readFileSync('nebula.config.json', 'utf8'));
+            }
             console.log(pc.cyan("Building project..."));
-            if (fs.existsSync("dist"))
-                fs.rmSync("dist", { recursive: true });
-            fs.mkdirSync("dist");
-            compile("dist");
+            if (fs.existsSync(distFolder))
+                fs.rmSync(distFolder, { recursive: true });
+            fs.mkdirSync(distFolder);
+            compile(distFolder);
         })();
         break;
     case "dev":
