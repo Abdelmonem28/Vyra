@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
-import compile from "../cli/compile";
+import { exec } from "child_process";
+import * as esbuild from "esbuild";
 import prompt from "../cli/prompt";
 import fs from "fs";
 import pc from 'picocolors';
+import listFiles from "../cli/ListFiles";
 
 type Config = {
     pages?: string;
@@ -25,16 +27,27 @@ const command = args[0];
 switch (command) {
     case "build":
         (async () => {
-            let config: Config = {};
-            const distFolder = config.dist || "dist";
-            if (fs.existsSync('nebula.config.json')) {
-                config = JSON.parse(fs.readFileSync('nebula.config.json', 'utf8'));
-            }
+            const distFolder = "dist";
             console.log(pc.cyan("Building project..."));
+            const buildTime = process.hrtime();
+            console.log(pc.yellow("Cleaning up dist folder..."));
             if (fs.existsSync(distFolder))
                 fs.rmSync(distFolder, { recursive: true });
             fs.mkdirSync(distFolder);
-            compile(distFolder);
+            console.log(pc.yellow("Building project..."));
+            await listFiles('./app/pages').then(files => {
+                esbuild.build({
+                    entryPoints: files,
+                    bundle: true,
+                    platform: 'browser',
+                    target: ['chrome58', 'firefox57', 'safari11', 'edge16'],
+                    outdir: distFolder,
+                    minify: true,
+                }).catch(() => process.exit(1));
+            });
+            const endBuildTime = process.hrtime(buildTime);
+            const time = (endBuildTime[0] * 1000) + (endBuildTime[1] / 1000000);
+            console.log(pc.green(`Project built successfully at ${time.toFixed(3)}ms`));
         })();
         break;
     case "dev":
