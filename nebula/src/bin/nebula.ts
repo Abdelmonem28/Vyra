@@ -3,18 +3,12 @@
 import { exec } from "child_process";
 import * as esbuild from "esbuild";
 import prompt from "../cli/prompt";
+import path from "path";
 import fs from "fs";
 import pc from 'picocolors';
 import listFiles from "../cli/ListFiles";
 
-type Config = {
-    pages?: string;
-    typeScript?: boolean;
-    dist?: string;
-}
-
 const args = process.argv.slice(2);
-
 
 
 if (args.length === 0) {
@@ -51,17 +45,15 @@ switch (command) {
         })();
         break;
     case "dev":
-        break;
-    case "ask":
-        (async () => {
-            const name = await prompt("What is your name? ");
-            const age = await prompt("What is your age? ");
-            const sallary = await prompt("What is your sallary? ");
-            console.log(`Hello, ${name}!`);
-            console.log(`your age is, ${age}!`);
-            console.log(`your sallary is, ${sallary}!`);
-            process.exit(0);
-        })();
+        exec(`node ${path.join(__dirname, '../server/server.js')}`, (error, stdout, stderr) => {
+            if (error)
+                console.log(error);
+        });
+        listFiles('./app/pages').then(files => {
+            files.forEach(file => fs.watchFile(file, { interval: 1000 }, () => {
+                console.log(file, ' is watching');
+            }));
+        });
         break;
     default:
         console.log(`Unknown command: ${command}` + `\n\n` + `Usage: nebula <command>` + `\n\n` + `where <command> is one of:\n\nbuild\nit will build the project\n\ndev\nit will start the development server and watch for changes\n\n`);
