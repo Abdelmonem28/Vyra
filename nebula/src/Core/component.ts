@@ -1,6 +1,6 @@
 import Router from "./router";
 import JSCompiler from "../Compiler";
-import { data, interaction } from "../types";
+import { data, interaction, StateGetter } from "../types";
 
 
 export default class Component {
@@ -20,6 +20,10 @@ export default class Component {
     static loading: Component | null = null;
     // Reserved global error view.
     static error: Component | null = null;
+    // Most recently rendered component instance.
+    static active: Component | null = null;
+    // State bindings that should be cleaned up when the component is rebound.
+    private stateBindings: Array<() => void> = [];
     // Dynamic values passed to the compiler.
     public data: { [key: string]: any } = {};
 
@@ -35,7 +39,13 @@ export default class Component {
         return JSCompiler(this.component, { ...context, ...this.data });
     }
 
+    // Renders the component to a string for nested component composition.
+    public renderToString(context: { [key: string]: any } = {}): string {
+        return this.compile(context);
+    }
+
     public async view() {
+        Component.active = this;
         // Compile the component string into HTML, then take the first body child.
         const wrapper = document.createElement('div');
         wrapper.innerHTML = this.compile();
@@ -73,6 +83,31 @@ export default class Component {
     // Sets inline style rules to be scoped to this view.
     public setStyle(styles: string) {
         this.componetData.styles = styles;
+    }
+
+    // Binds a state getter to a data key and re-renders the component on change.
+    public bindState<T>(key: string, state: StateGetter<T>): void {
+        const sync = () => {
+            this.data[key] = state();
+            if (Component.active === this)
+                void this.view();
+        };
+
+        this.data[key] = state();
+        state._subscribe(sync);
+        this.stateBindings.push(() => state._unsubscribe(sync));
+    }
+
+    // Removes all state bindings created through bindState.
+    public dispose(): void {
+        while (this.stateBindings.length > 0) {
+            const unbind = this.stateBindings.pop();
+            if (unbind)
+                unbind();
+        }
+
+        if (Component.active === this)
+            Component.active = null;
     }
 
     // Injects inline styles as a <style> tag inside the rendered view.

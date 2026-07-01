@@ -31,3 +31,10 @@ export type data = {
     interactions?: interaction[],
     children?: { [key: string]: Component },
 }
+
+export type subscription = () => void;
+
+export type StateGetter<T> = (() => T) & {
+    _subscribe: (fn: subscription) => void;
+    _unsubscribe: (fn: subscription) => void;
+};

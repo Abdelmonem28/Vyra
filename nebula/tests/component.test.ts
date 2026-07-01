@@ -3,6 +3,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Component from '../src/Core/component';
 import Router from '../src/Core/router';
+import { createState } from '../src/Core/state';
 
 describe('Component', () => {
     beforeEach(() => {
@@ -17,6 +18,12 @@ describe('Component', () => {
         const component = new Component('<p>{{name}}</p>', undefined, { name: 'Ada' });
 
         expect(component.compile({ name: 'Bob' })).toBe('<p>Ada</p>');
+    });
+
+    it('renders to string for nested component composition', () => {
+        const component = new Component('<p>{{name}}</p>');
+
+        expect(component.renderToString({ name: 'Ada' })).toBe('<p>Ada</p>');
     });
 
     it('renders into the root element and updates the document title', async () => {
@@ -81,6 +88,21 @@ describe('Component', () => {
 
         expect(fetchSpy).toHaveBeenCalledWith('/styles.css');
         expect(style?.textContent).toBe(`.${rendered.classList[0]} {background: black;}`);
+    });
+
+    it('re-renders when a bound state changes', async () => {
+        const component = new Component('<main>{{count}}</main>');
+        const [count, setCount] = createState(0);
+
+        component.bindState('count', count);
+
+        await component.view();
+
+        expect(document.getElementById('Zweb-App')?.textContent).toContain('0');
+
+        setCount(prev => prev + 1);
+
+        expect(document.getElementById('Zweb-App')?.textContent).toContain('1');
     });
 
     it('uses the instance loading view before navigation', async () => {
