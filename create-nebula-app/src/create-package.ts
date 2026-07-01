@@ -25,14 +25,17 @@ export default function Package(
         name: appName,
         version: "1.0.0",
         description: "Nebula is a simple and easy to use library for creating web applications.",
-        scripts: {
-            "start": "nebula start",
-            "build": "nebula build",
-            "test": "nebula test"
+        "scripts": {
+            "dev": "vite",
+                "build": "vite build",
+                    "preview": "vite preview"
         },
-        dependencies: {
+        "dependencies": {
             "nebula": "^1.0.0"
         },
-        liscense: "MIT"
-    }
+        "devDependencies": {
+            "vite": "^5.0.0"
+        }
+    
+}
 };
