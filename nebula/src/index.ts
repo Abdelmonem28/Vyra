@@ -1,4 +1,4 @@
-import Router from './lib/Router';
+import Router from './Core/router';
 document.addEventListener('DOMContentLoaded', async () => {
     await Router.router();
 });
@@ -6,4 +6,4 @@ window.addEventListener('popstate', async () => {
     await Router.router();
 });
 
-export { default } from './lib/View';
+export { default } from './Core/component';

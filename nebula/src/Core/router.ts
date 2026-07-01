@@ -1,4 +1,4 @@
-import View from "./View";
+import View from "./component";
 
 type route = {
     path: string,
@@ -22,11 +22,11 @@ export default class Router {
     }
 
     static async navigateTo(path: string) {
-            try {
-                history.pushState(null, '', path);
-                await Router.router();
-            } catch (ex) {
-                console.log(ex);
-            }
+        try {
+            history.pushState(null, '', path);
+            await Router.router();
+        } catch (ex) {
+            console.log(ex);
+        }
     }
 }

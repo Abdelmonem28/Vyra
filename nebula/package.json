@@ -9,7 +9,8 @@
     "nebula": "./dist/bin/nebula.js"
   },
   "scripts": {
-    "test": "npm unlink nebula && npm link && nebula generate",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build": "tsup --config tsup.config.cjs.ts && tsup --config tsup.config.esm.ts"
   },
   "keywords": [
@@ -29,9 +30,7 @@
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.2",
     "tsup": "^8.1.0",
-    "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "express": "^4.19.2"
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.9"
   }
 }
