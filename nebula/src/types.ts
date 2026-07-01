@@ -21,7 +21,7 @@ export type Node =
 export type interaction = {
     id: string,
     event: string,
-    handler: () => any
+    handler: (event: Event) => void
 }
 
 // Optional configuration used by each View instance.

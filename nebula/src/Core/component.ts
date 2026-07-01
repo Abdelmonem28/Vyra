@@ -46,6 +46,15 @@ export default class Component {
 
     public async view() {
         Component.active = this;
+        const activeElement = document.activeElement as HTMLElement | null;
+        const activeId = activeElement?.id || null;
+        const selectionStart = activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement
+            ? activeElement.selectionStart
+            : null;
+        const selectionEnd = activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement
+            ? activeElement.selectionEnd
+            : null;
+
         // Compile the component string into HTML, then take the first body child.
         const wrapper = document.createElement('div');
         wrapper.innerHTML = this.compile();
@@ -75,6 +84,16 @@ export default class Component {
             // Replace current content with the rendered view.
             this.root.innerText = '';
             this.root.append(view);
+
+            if (activeId) {
+                const nextActive = this.root.querySelector<HTMLElement>(`#${CSS.escape(activeId)}`);
+                if (nextActive) {
+                    nextActive.focus();
+                    if ((nextActive instanceof HTMLInputElement || nextActive instanceof HTMLTextAreaElement) && selectionStart !== null && selectionEnd !== null) {
+                        nextActive.setSelectionRange(selectionStart, selectionEnd);
+                    }
+                }
+            }
         } else {
             throw new Error("there is no root id: Zweb-App");
         }
@@ -136,7 +155,7 @@ export default class Component {
     }
 
     // Queues a DOM event binding for an element id inside this view.
-    public setInteraction(id: string, eventType: string, handler: () => any) {
+    public setInteraction(id: string, eventType: string, handler: (event: Event) => void) {
         const interaction: interaction = { id, event: eventType, handler }
         this.componetData.interactions?.push(interaction);
     }

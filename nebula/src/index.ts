@@ -6,4 +6,6 @@ window.addEventListener('popstate', async () => {
     await Router.router();
 });
 
-export { default } from './Core/component';
+export { default as Component } from './Core/component';
+export { default as Router }    from './Core/router';
+export { createState }          from './Core/state';

@@ -24,7 +24,7 @@ export function render(ast: Node[], data: { [key: string]: any }): string {
                 res += val ? render(node.then, data) : render(node.else, data);
             }
         } else if (node.type === 'each') {
-            const arr = (data as any)[node.source];
+            const arr = resolvePath(node.source, data);
             if (!Array.isArray(arr)) continue;
             for (let i = 0; i < arr.length; i++) {
                 const scope = Object.assign({}, data);
