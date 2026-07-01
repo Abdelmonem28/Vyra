@@ -110,7 +110,7 @@ export default class Component {
     private setInteractionP(interactions: interaction[], view: HTMLElement) {
         for (let i = 0; i < interactions.length; i++) {
             const interaction = interactions[i];
-            const element = view.querySelector(`#${interaction.id}`);
+            const element = view.id === interaction.id ? view : view.querySelector(`#${interaction.id}`);
             if (element)
                 element.addEventListener(interaction.event, interaction.handler);
             else
