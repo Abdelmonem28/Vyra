@@ -24,6 +24,14 @@ describe('JSCompiler', () => {
         expect(html).toBe('<div><nav>Home</nav></div>');
     });
 
+    it('renders missing nested key as empty string, not the key name', () => {
+        expect(JSCompiler('{{user.city}}', { user: { name: 'Karf' } })).toBe('');
+    });
+
+    it('renders falsy zero at a nested path correctly', () => {
+        expect(JSCompiler('{{score.value}}', { score: { value: 0 } })).toBe('0');
+    });
+
     it('returns an empty string for an empty template', () => {
         expect(JSCompiler('', {})).toBe('');
     });

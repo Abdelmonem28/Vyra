@@ -18,13 +18,12 @@
     "nebula-create",
     "nebula-create-app",
     "nebula-app-create",
-    "framework",
-    "nebula-framework",
+    "cli",
     "nebula-cli",
     "nebula-cli-create"
   ],
-  "author": "MSK company",
-  "license": "ISC",
+  "author": "Abdelmonem Ahmed",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.19.43",
     "tsup": "^8.1.0",

@@ -7,8 +7,12 @@ type route = {
 
 export default class Router {
     static routes: route[] = [];
+    static currentComponent: View | null = null;
 
     static async router() {
+        if (Router.currentComponent) {
+            Router.currentComponent.dispose(); // clean up before switching
+        }
 
         let route = Router.routes.find(r => r.path === location.pathname);
 
@@ -16,7 +20,7 @@ export default class Router {
             route = { path: "/404", view: new View("<h1>OOPS - NOT FOUND 404</h1>", "NOT FOUND") };
         }
 
-        // new View("<h1>LOADING...</h1>", "loading").view();
+        Router.currentComponent = route.view;
         await route.view.view();
 
     }

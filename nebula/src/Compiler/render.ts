@@ -4,7 +4,10 @@ export function render(ast: Node[], data: { [key: string]: any }): string {
     let res = '';
     for (const node of ast) {
         if (node.type === 'text') res += node.value;
-        else if (node.type === 'interp') res += String(resolvePath(node.expr, data));
+        else if (node.type === 'interp') {
+            const val = resolvePath(node.expr, data);
+            res += val === undefined || val === null ? '' : String(val);
+        }
         else if (node.type === 'component') {
             const child = (data as any).children?.[node.name];
             if (!child) throw new Error(`Component "${node.name}" was not found in data.children`);
@@ -41,6 +44,6 @@ function resolvePath(expr: string, data: { [key: string]: any }) {
     const parts = expr.split('.').map(s => s.trim()).filter(Boolean);
     const first = parts[0];
     let val: any = first in data ? data[first] : undefined;
-    for (let i = 1; i < parts.length; i++) val = val?.[parts[i]] ?? parts[i];
+    for (let i = 1; i < parts.length; i++) val = val?.[parts[i]];
     return val;
 }
