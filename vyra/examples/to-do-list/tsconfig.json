@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@vyra/component": ["../../src/Core/component.ts"],
+      "@vyra/state": ["../../src/Core/state.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

@@ -1,23 +1,23 @@
 <div align="center">
-  <img src="./public/logo.png" alt="Nebula logo" width="120" />
+  <img src="./public/logo.png" alt="Vyra logo" width="120" />
 </div>
 
-# Nebula ✦
+# Vyra ✦
 
 
 
 > A lightweight TypeScript UI library — template compiler, signals-based reactivity, component composition, and a client-side router. Zero runtime dependencies.
 
-[![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen)](https://github.com/mon3sh/nebula)
-[![npm](https://img.shields.io/npm/v/nebula)](https://www.npmjs.com/package/nebula)
+[![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen)](https://github.com/mon3sh/vyra)
+[![npm](https://img.shields.io/npm/v/vyra)](https://www.npmjs.com/package/vyra)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
-[![Bundle size](https://img.shields.io/badge/bundle-~6kB%20min%2Bgzip-informational)](https://bundlephobia.com/package/nebula)
+[![Bundle size](https://img.shields.io/badge/bundle-~6kB%20min%2Bgzip-informational)](https://bundlephobia.com/package/vyra)
 
 ---
 
-## What is Nebula?
+## What is Vyra?
 
-Nebula is a UI library built from scratch in TypeScript. It gives you:
+Vyra is a UI library built from scratch in TypeScript. It gives you:
 
 - A **template compiler** with `{{interpolation}}`, `{{#if}}`, `{{#each}}`, and `{{> child}}` syntax
 - **Signals-based reactivity** — state changes automatically re-render the components that use them
@@ -25,20 +25,20 @@ Nebula is a UI library built from scratch in TypeScript. It gives you:
 - A **client-side router** for building SPAs without a full page reload
 - **Scoped styles** — inline or external CSS, automatically scoped to each component
 
-It is intentionally small. There is no virtual DOM, no JSX, no build plugin required. If you know HTML, you can use Nebula.
+It is intentionally small. There is no virtual DOM, no JSX, no build plugin required. If you know HTML, you can use vyra.
 
 ---
 
 ## Install
 
 ```bash
-npm install nebula
+npm install vyra
 ```
 
 Or scaffold a new project in one command:
 
 ```bash
-npx create-nebula-app
+npx create-vyra-app
 ```
 
 ---
@@ -53,7 +53,7 @@ npx create-nebula-app
 
 ```js
 // src/main.js
-import { Component, Router, createState } from 'nebula';
+import { Component, Router, createState } from 'vyra';
 
 // 1. Create a reactive state value
 const [count, setCount] = createState(0);
@@ -86,7 +86,7 @@ That's the whole API for a reactive, routed component. No configuration files ne
 
 ## Template syntax
 
-Nebula templates are plain HTML strings containing `{{ }}` tags.
+Vyra templates are plain HTML strings containing `{{ }}` tags.
 
 ### Interpolation
 
@@ -291,7 +291,7 @@ Router.navigateTo('/dashboard');
 
 ## The template compiler
 
-The compiler is the most technically interesting part of Nebula. It processes templates in three stages:
+The compiler is the most technically interesting part of Vyra. It processes templates in three stages:
 
 **1. Tokenize** — walks the template string once and produces a flat list of tokens: `text`, `interp`, `if`, `else`, `endif`, `each`, `endeach`, `component`. This is a single regex pass; no string-position arithmetic.
 
@@ -305,8 +305,8 @@ The compiler is the most technically interesting part of Nebula. It processes te
 
 Two fully working example apps are included in [`examples/`](./examples):
 
-- **[to-do-list](./examples/to-do-list)** — full CRUD todo app with filtering, inline editing, localStorage persistence, and light/dark theme toggle.
-- **[nebula-control-room](./examples/nebula-control-room)** — mission management dashboard with multi-view routing, metrics grid, priority filtering, and real-time clock.
+- **[to-do-list](https://vyra-todo-list.netlify.app/)** — full CRUD todo app with filtering, inline editing, localStorage persistence, and light/dark theme toggle.
+- **[vyra-control-room](./examples/vyra-control-room)** — mission management dashboard with multi-view routing, metrics grid, priority filtering, and real-time clock.
 
 To run either example:
 
@@ -321,7 +321,7 @@ npm run dev
 ## Project structure
 
 ```
-nebula/
+vyra/
 ├── src/
 │   ├── Compiler/
 │   │   ├── tokenizer.ts    # template string → flat Token[]
@@ -341,21 +341,21 @@ nebula/
 │   └── index.test.ts
 └── examples/
     ├── to-do-list/
-    └── nebula-control-room/
+    └── vyra-control-room/
 ```
 
 ---
 
-## create-nebula-app
+## create-vyra-app
 
-Scaffold a new Nebula project without any manual setup:
+Scaffold a new vyra project without any manual setup:
 
 ```bash
-npx create-nebula-app
+npx create-vyra-app
 ```
 
 ```
-  Welcome to Nebula ✦
+  Welcome to vyra ✦
 
   App name: my-app
   TypeScript? (y/N): n
